@@ -4,6 +4,9 @@ class Board:
     def getBoard(self):
         return self.board
 
+    def getBoardSize(self):
+        return len(self.board)
+
     def createBoard(self, size):
         self.board = [[''] * size for _ in range(size)]
         print(self.board)

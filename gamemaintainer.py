@@ -5,14 +5,12 @@ from gameanalyser import GameAnalyser
 
 class GameMaintainer:
     players = []
-    playboard = Board()
-    currentPlayerIndex = 0
-    gameAnalyser = GameAnalyser()
-    lastRow = 0
-    lastCol = 0
+    play_board = Board()
+    current_player_index = 0
+    game_analyzer = GameAnalyser()
 
     def getBoard(self):
-        return self.playboard
+        return self.play_board
 
     def addNewPlayer(self, name, icon):
         user = User(name, icon)
@@ -23,21 +21,21 @@ class GameMaintainer:
         self.players.append(user)
 
     def createBoard(self, size):
-        self.playboard.createBoard(size)
+        self.play_board.createBoard(size)
 
     def addValueToBoard(self, row, column):
-        self.playboard.addValueToBoard(row, column, self.getCurrentPlayerIcon())
-        self.lastRow = row
-        self.lastCol = column
+        self.play_board.addValueToBoard(row, column, self.getCurrentPlayerIcon())
+        print(self.play_board)
 
     def changeCurrentPlayer(self):
-        if self.currentPlayerIndex < len(self.players) - 1:
-            self.currentPlayerIndex = self.currentPlayerIndex + 1
+        if self.current_player_index < len(self.players) - 1:
+            self.current_player_index = self.current_player_index + 1
         else:
-            self.currentPlayerIndex = 0
+            self.current_player_index = 0
+        return self.players[self.current_player_index]
 
     def getCurrentPlayerName(self):
-        return self.players[self.currentPlayerIndex].name
+        return self.players[self.current_player_index].name
 
     def getPlayerByName(self, name):
         for i in self.players:
@@ -45,13 +43,11 @@ class GameMaintainer:
                 return i
 
     def getCurrentPlayerIcon(self):
-        return self.players[self.currentPlayerIndex].icon
+        return self.players[self.current_player_index].icon
 
     def analyzeBoard(self):
-        self.gameAnalyser.analyze(self.playboard.board)
+        return self.game_analyzer.analyze(self.play_board.board)
 
-    def getLastRow(self):
-        return self.lastRow
+    def checkForTie(self):
+        return self.game_analyzer.check_for_tie(self.play_board.board)
 
-    def getLastCol(self):
-        return self.lastCol
